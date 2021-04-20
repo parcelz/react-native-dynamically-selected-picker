@@ -20,6 +20,12 @@ export default class DynamicallySelectedPicker extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      itemIndex: nextProps.initialSelectedIndex,
+    };
+  }
+
   scrollToInitialPosition = () => {
     this.scrollViewRef.scrollTo({
       y: this.state.itemHeight * this.props.initialSelectedIndex,
@@ -129,13 +135,8 @@ export default class DynamicallySelectedPicker extends React.Component {
       fontSize,
       fontFamily,
       selectedItemBorderColor,
-      selectedIndex,
     } = this.props;
 
-    if(selectedIndex !== itemIndex){
-      this.setItemIndex(selectedIndex);
-    } 
-    
     return (
       <View style={{height: height, width: width}}>
         <ScrollView
@@ -267,7 +268,6 @@ DynamicallySelectedPicker.propTypes = {
   onScrollBeginDrag: PropTypes.func,
   onScrollEndDrag: PropTypes.func,
   initialSelectedIndex: PropTypes.number,
-  selectedIndex: PropTypes.number,
   height: PropTypes.number,
   width: PropTypes.number,
   allItemsColor: PropTypes.string,
