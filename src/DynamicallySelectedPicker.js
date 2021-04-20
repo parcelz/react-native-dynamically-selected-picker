@@ -54,17 +54,7 @@ export default class DynamicallySelectedPicker extends React.Component {
     }
   }
 
-  onChangedValue(index) {
-    const {items, onScroll} = this.props;
-    if (
-      this.state.itemIndex !== index &&
-      index >= 0 &&
-      index < this.allItemsLength()
-    ) {
-      this.setItemIndex(index);
-      onScroll({index: index, item: items[index]});
-    }
-  }
+ 
 
   onMomentumScrollBegin(event) {
     const {items, onMomentumScrollBegin} = this.props;
@@ -139,7 +129,13 @@ export default class DynamicallySelectedPicker extends React.Component {
       fontSize,
       fontFamily,
       selectedItemBorderColor,
+      selectedIndex,
     } = this.props;
+
+    if(selectedIndex !== itemIndex){
+      this.setItemIndex(selectedIndex);
+    } 
+    
     return (
       <View style={{height: height, width: width}}>
         <ScrollView
@@ -149,9 +145,6 @@ export default class DynamicallySelectedPicker extends React.Component {
           onLayout={this.scrollToInitialPosition}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          onChangedValue={(index) => {
-            this.onChangedValue(index);
-          }}
           onMomentumScrollBegin={(event) => {
             this.onMomentumScrollBegin(event);
           }}
@@ -234,7 +227,6 @@ export default class DynamicallySelectedPicker extends React.Component {
 
 DynamicallySelectedPicker.defaultProps = {
   items: [{value: 0, label: 'No items', itemColor: 'red'}],
-  onChangedValue: () => {},
   onScroll: () => {},
   onScrollBeginDrag: () => {},
   onScrollEndDrag: () => {},
@@ -269,13 +261,13 @@ DynamicallySelectedPicker.propTypes = {
       itemColor: PropTypes.string,
     }),
   ),
-  onChangedValue: PropTypes.func,
   onScroll: PropTypes.func,
   onMomentumScrollBegin: PropTypes.func,
   onMomentumScrollEnd: PropTypes.func,
   onScrollBeginDrag: PropTypes.func,
   onScrollEndDrag: PropTypes.func,
   initialSelectedIndex: PropTypes.number,
+  selectedIndex: PropTypes.number,
   height: PropTypes.number,
   width: PropTypes.number,
   allItemsColor: PropTypes.string,
