@@ -54,7 +54,7 @@ export default class DynamicallySelectedPicker extends React.Component {
     }
   }
 
-  currentIndex(index) {
+  onChangedValue(index) {
     const {items, onScroll} = this.props;
     if (
       this.state.itemIndex !== index &&
@@ -149,6 +149,9 @@ export default class DynamicallySelectedPicker extends React.Component {
           onLayout={this.scrollToInitialPosition}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          onChangedValue={(index) => {
+            this.onChangedValue(index);
+          }}
           onMomentumScrollBegin={(event) => {
             this.onMomentumScrollBegin(event);
           }}
@@ -231,6 +234,7 @@ export default class DynamicallySelectedPicker extends React.Component {
 
 DynamicallySelectedPicker.defaultProps = {
   items: [{value: 0, label: 'No items', itemColor: 'red'}],
+  onChangedValue: () => {},
   onScroll: () => {},
   onScrollBeginDrag: () => {},
   onScrollEndDrag: () => {},
@@ -265,6 +269,7 @@ DynamicallySelectedPicker.propTypes = {
       itemColor: PropTypes.string,
     }),
   ),
+  onChangedValue: PropTypes.func,
   onScroll: PropTypes.func,
   onMomentumScrollBegin: PropTypes.func,
   onMomentumScrollEnd: PropTypes.func,
