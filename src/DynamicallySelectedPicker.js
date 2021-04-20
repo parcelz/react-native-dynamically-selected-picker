@@ -54,6 +54,18 @@ export default class DynamicallySelectedPicker extends React.Component {
     }
   }
 
+  currentIndex(index) {
+    const {items, onScroll} = this.props;
+    if (
+      this.state.itemIndex !== index &&
+      index >= 0 &&
+      index < this.allItemsLength()
+    ) {
+      this.setItemIndex(index);
+      onScroll({index: index, item: items[index]});
+    }
+  }
+
   onMomentumScrollBegin(event) {
     const {items, onMomentumScrollBegin} = this.props;
     const tempIndex = this.getItemTemporaryIndex(event);
