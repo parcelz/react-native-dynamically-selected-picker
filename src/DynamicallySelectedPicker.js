@@ -32,6 +32,12 @@ export default class DynamicallySelectedPicker extends React.Component {
     });
   };
 
+  scrollToPosition = (index) => {
+    this.scrollViewRef.scrollTo({
+      y: this.state.itemHeight * index,
+    });
+  };
+  
   fakeItems(n = 3) {
     const itemsArr = [];
     for (let i = 0; i < n; i++) {
