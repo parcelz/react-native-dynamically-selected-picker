@@ -167,7 +167,7 @@ export default class DynamicallySelectedPicker extends React.Component {
           onScroll={(event) => {
             this.onScroll(event);
           }}
-          scrollEventThrottle
+          scrollEventThrottle={props.scrollEventThrottle}
           initialScrollIndex={itemIndex}
           snapToInterval={itemHeight}>
           {this.extendedItems().map((item, index) => {
@@ -242,6 +242,7 @@ DynamicallySelectedPicker.defaultProps = {
   width: 300,
   height: 300,
   initialSelectedIndex: 0,
+  scrollEventThrottle: 0,
   transparentItemRows: 3,
   allItemsColor: '#000',
   fontFamily: 'Arial',
@@ -274,6 +275,7 @@ DynamicallySelectedPicker.propTypes = {
   onScrollBeginDrag: PropTypes.func,
   onScrollEndDrag: PropTypes.func,
   initialSelectedIndex: PropTypes.number,
+  scrollEventThrottle: PropTypes.number,
   height: PropTypes.number,
   width: PropTypes.number,
   allItemsColor: PropTypes.string,
